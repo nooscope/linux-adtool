@@ -11,7 +11,7 @@
  *
 **/
 
-#define ADTOOL_VERSION "1.3.3"
+#define ADTOOL_VERSION "1.3.3-sAMAccountName-mod"
 
 #include <active_directory.h>
 
@@ -57,11 +57,11 @@ void usage() {
 		"oucreate           <OU name> <container>           create a new organizational unit\n"
 		"oudelete           <OU name>                       delete an organizational unit\n"
 		"\n"
-		"attributeget       <sAMAccountName> <attribute>    display attribute values\n"
-		"attributeadd       <object> <attribute> <value>    add an attribute\n"
-		"attributeaddbinary <object> <attribute> <filename> add an attribute from a file\n"
-		"attributereplace   <sAMAccountName> <attribute> <value>   replace an attribute\n"
-		"attributedelete    <object> <attribute> [value]    delete an attribute or attribute instance\n"
+		"attributeget       <sAMAccountName> <attribute>            display attribute values\n"
+		"attributeadd       <sAMAccountName> <attribute> <value>    add an attribute\n"
+		"attributeaddbinary <sAMAccountName> <attribute> <filename> add an attribute from a file\n"
+		"attributereplace   <sAMAccountName> <attribute> <value>    replace an attribute\n"
+		"attributedelete    <sAMAccountName> <attribute> [value]    delete an attribute or attribute instance\n"
 		"\n"
 		"search             <attribute> <value>             simple ldap search\n"
 		"\n",
@@ -406,7 +406,7 @@ void attributeadd(char **argv) {
 	attribute=argv[1];
 	value=argv[2];
 
-        dn=ad_search("name", object);
+        dn=ad_search("sAMAccountName", object);
         if(ad_get_error_num()!=AD_SUCCESS) {
                 fprintf(stderr, "error: %s\n", ad_get_error());
                 exit(1);
@@ -434,7 +434,7 @@ void attributeaddbinary(char **argv) {
 	attribute=argv[1];
 	filename=argv[2];
 
-        dn=ad_search("name", object);
+        dn=ad_search("sAMAccountName", object);
         if(ad_get_error_num()!=AD_SUCCESS) {
                 fprintf(stderr, "error: %s\n", ad_get_error());
                 exit(1);
@@ -497,7 +497,7 @@ void attributedelete(char **argv) {
 	attribute=argv[1];
 	value=argv[2];
 
-        dn=ad_search("name", object);
+        dn=ad_search("sAMAccountName", object);
         if(ad_get_error_num()!=AD_SUCCESS) {
                 fprintf(stderr, "error: %s\n", ad_get_error());
                 exit(1);
